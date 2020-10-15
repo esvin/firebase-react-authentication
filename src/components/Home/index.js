@@ -1,14 +1,12 @@
+import { auth } from 'firebase';
 import React from 'react';
-import { FirebaseContext } from '../Firebase';
+import { withAuthorization } from '../Session';
 
 const HomePage = () => (
-    <FirebaseContext.Consumer>
-        {
-            firebase => {
-                return <div>I've access to Firebase and render something</div>
-
-        }}
-    </FirebaseContext.Consumer>
+    <div>
+        <h1>Hello from Home Page my bro</h1>
+        <p>This page is only reached but users that have already signIn</p>
+    </div>
 );
-
-export default HomePage;
+const condition = authUser => !!authUser;
+export default withAuthorization(condition)(HomePage);
